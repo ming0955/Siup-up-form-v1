@@ -73,15 +73,17 @@ export const HeaderContainer = styled.div`
   margin-bottom: 20px;
 `
 
-export const HeadingTitle = styled.div`
+export const HeadingTitle = styled.p`
   display: flex;
   font-style: normal;
-  font-weight: 800;
+  font-weight: bold;
   font-size: 22px;
   line-height: 26px;
   color: ${SF_FormColor.PRIMARY};
   margin: 10px 0 7px;
-  font-family: 'Lato';
+  font-family: 'lato';
+  text-shadow: 0 1px 2px ${SF_FormColor.PRIMARY}, -1px 0px 1px ${SF_FormColor.PRIMARY},
+    -1px 0px 1px ${SF_FormColor.PRIMARY};
 `
 
 export const SubCaption = styled.p`
