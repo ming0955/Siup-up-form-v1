@@ -14,7 +14,7 @@ export const Steps = ({ currentStep, firstColor, secondColor }: IStepProps) => {
       {arr.map((i) => (
         <StepWrapper key={i}>
           <SteperLine active={currentStep >= i} stepNum={i} firstColor={firstColor} secondColor={secondColor} />
-          <StepNum>{`Step ${i}`}</StepNum>
+          <StepNum active={currentStep >= i} stepNum={i}>{`Step ${i}`}</StepNum>
         </StepWrapper>
       ))}
     </StepContainer>
