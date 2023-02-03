@@ -82,8 +82,8 @@ export const HeadingTitle = styled.p`
   color: ${SF_FormColor.PRIMARY};
   margin: 10px 0 7px;
   font-family: 'lato';
-  text-shadow: 0 1px 2px ${SF_FormColor.PRIMARY}, -1px 0px 1px ${SF_FormColor.PRIMARY},
-    -1px 0px 1px ${SF_FormColor.PRIMARY};
+  text-shadow: 0px 1px 0px ${SF_FormColor.PRIMARY}, 0px 0px 1px ${SF_FormColor.PRIMARY},
+    0px 0px 0px ${SF_FormColor.PRIMARY};
 `
 
 export const SubCaption = styled.p`
