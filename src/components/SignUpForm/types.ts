@@ -33,6 +33,7 @@ export interface IStep {
   stepNum?: number
   firstColor?: string
   secondColor?: string
+  sucess?: boolean
 }
 
 export interface IFieldsStyleProps {

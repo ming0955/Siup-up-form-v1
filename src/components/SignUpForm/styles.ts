@@ -55,8 +55,8 @@ export const StepNum = styled.span<IStep>`
   font-family: 'Lato';
   right: ${(props) => (props.stepNum === 1 ? '63%' : 'unset')};
   left: ${(props) => (props.stepNum === 2 ? '63%' : 'unset')};
-  color: ${(props) =>
-    props.active ? props.firstColor || SF_FormColor.PRIMARY : props.secondColor || SF_FormColor.SECONDARY};
+  color: ${(props) => (props.active ? SF_FormColor.TEXTACTIVE : SF_FormColor.TEXTCOLOR)};
+  color: ${(props) => props.sucess && SF_FormColor.PRIMARY};
 `
 
 export const FormContainer = styled.div`
@@ -76,14 +76,12 @@ export const HeaderContainer = styled.div`
 export const HeadingTitle = styled.p`
   display: flex;
   font-style: normal;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 22px;
   line-height: 26px;
   color: ${SF_FormColor.PRIMARY};
   margin: 10px 0 7px;
-  font-family: 'lato';
-  text-shadow: 0px 1px 0px ${SF_FormColor.PRIMARY}, 0px 0px 1px ${SF_FormColor.PRIMARY},
-    0px 0px 0px ${SF_FormColor.PRIMARY};
+  font-family: 'latoblack';
 `
 
 export const SubCaption = styled.p`
