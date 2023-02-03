@@ -208,6 +208,7 @@ export const Input = styled.input<IinputStyleProps>`
 export const ErrorText = styled.p<ErrorTextStyleProps>`
   position: relative;
   display: flex;
+  align-items: center;
   width: 100%;
   white-space: nowrap;
   color: ${SF_FormColor.RED};
