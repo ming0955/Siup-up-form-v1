@@ -22,6 +22,7 @@ export const StepContainer = styled.div`
 `
 
 export const StepWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -47,8 +48,15 @@ export const SteperLine = styled.div<IStep>`
   }
 `
 export const StepNum = styled.span<IStep>`
+  position: absolute;
   display: flex;
-  font-size: 12px;
+  font-size: 10px;
+  top: 14px;
+  font-family: 'Lato';
+  right: ${(props) => (props.stepNum === 1 ? '63%' : 'unset')};
+  left: ${(props) => (props.stepNum === 2 ? '63%' : 'unset')};
+  color: ${(props) =>
+    props.active ? props.firstColor || SF_FormColor.PRIMARY : props.secondColor || SF_FormColor.SECONDARY};
 `
 
 export const FormContainer = styled.div`
