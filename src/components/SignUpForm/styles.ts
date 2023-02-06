@@ -76,7 +76,6 @@ export const HeaderContainer = styled.div`
 export const HeadingTitle = styled.p`
   display: flex;
   font-style: normal;
-  /* font-weight: bold; */
   font-size: 22px;
   line-height: 26px;
   color: ${SF_FormColor.PRIMARY};
