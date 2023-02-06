@@ -6,7 +6,6 @@ import ForwardIcon from '@mui/icons-material/Forward'
 import { IstepOneProps, IFormProps } from './types'
 import * as PSC from './phoneInput.style'
 import {
-  FormContainer,
   HeadingTitle,
   SubCaption,
   Form,
