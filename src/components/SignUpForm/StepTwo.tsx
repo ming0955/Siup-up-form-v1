@@ -129,7 +129,7 @@ export const StepTwo = ({
   }
 
   return (
-    <FormContainer>
+    <>
       <HeaderContainer>
         <HeadingTitle>{headingTitle || 'Enter Your Payment Details'}</HeadingTitle>
         {subCaptionTexts.map((text, i) => {
@@ -218,6 +218,6 @@ export const StepTwo = ({
           />
         </AgreeBox>
       </Form>
-    </FormContainer>
+    </>
   )
 }

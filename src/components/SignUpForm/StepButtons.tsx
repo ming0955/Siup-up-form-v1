@@ -10,7 +10,7 @@ export const StepButtons = ({ setCurrentStep, currentStep, steps }: IStepButtons
   }
 
   return (
-    <ButtonGroup marginTop={currentStep === 2}>
+    <ButtonGroup marginTop={currentStep === 2} className='sf-sign-up-form-buttons'>
       {currentStep === 2 && <BackButton onClick={handdleBack}>Back</BackButton>}
       <StepButton type='submit' form={currentStep === 1 ? 'stepOneForm' : 'stepTwoForm'}>
         <Badge>

@@ -97,7 +97,7 @@ export const StepOne = ({
   }
 
   return (
-    <FormContainer>
+    <>
       <HeaderContainer>
         <HeadingTitle>{headingTitle || 'Enter Your Information'}</HeadingTitle>
         {subCaptionTexts.map((text, i) => {
@@ -272,6 +272,6 @@ export const StepOne = ({
           </FieldBox>
         </Fields>
       </Form>
-    </FormContainer>
+    </>
   )
 }

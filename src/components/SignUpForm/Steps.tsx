@@ -10,7 +10,7 @@ interface IStepProps {
 export const Steps = ({ currentStep, firstColor, secondColor }: IStepProps) => {
   const arr = [1, 2]
   return (
-    <StepContainer>
+    <StepContainer className='sf-sign-up-form-step'>
       {arr.map((i) => (
         <StepWrapper key={i}>
           <SteperLine active={currentStep >= i} stepNum={i} firstColor={firstColor} secondColor={secondColor} />

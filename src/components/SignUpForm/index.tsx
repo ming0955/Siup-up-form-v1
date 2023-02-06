@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { RowSpace, SignUpContainer, TermsCondition } from './styles'
+import { FormContainer, RowSpace, SignUpContainer, TermsCondition } from './styles'
 import { Steps } from './Steps'
 import { StepOne } from './StepOne'
 import { IFormProps } from './types'
@@ -8,6 +8,8 @@ import { StepButtons } from './StepButtons'
 import { SF_FormColor } from './constants.enum'
 
 interface Props {
+  id?: string
+  className?: string
   firstColor?: string
   secondColor?: string
   headingTitle: string[]
@@ -16,7 +18,7 @@ interface Props {
   onSubmit: (data: IFormProps) => void
 }
 
-const SignUpForm = ({ firstColor, secondColor, headingTitle, subCaption, steps, onSubmit }: Props) => {
+const SignUpForm = ({ id, className, firstColor, secondColor, headingTitle, subCaption, steps, onSubmit }: Props) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [data, setData] = useState<IFormProps>({
     firstName: '',
@@ -40,7 +42,7 @@ const SignUpForm = ({ firstColor, secondColor, headingTitle, subCaption, steps, 
   })
 
   return (
-    <SignUpContainer>
+    <SignUpContainer id={id || 'sf-sign-up-form'} className={className || 'sf-sign-up-form'}>
       {steps && steps > 1 && (
         <Steps
           currentStep={currentStep}
@@ -49,36 +51,37 @@ const SignUpForm = ({ firstColor, secondColor, headingTitle, subCaption, steps, 
           steps={steps}
         />
       )}
+      <FormContainer className='sf-form-container'>
+        {currentStep === 1 && (
+          <StepOne
+            headingTitle={headingTitle[0]}
+            subCaption={subCaption[0]}
+            steps={steps || 1}
+            setCurrentStep={setCurrentStep}
+            currentStep={currentStep}
+            data={data}
+            setData={setData}
+            onSubmit={onSubmit}
+            validedFields={validedFields}
+            setValidedFields={setValidedFields}
+          />
+        )}
 
-      {currentStep === 1 && (
-        <StepOne
-          headingTitle={headingTitle[0]}
-          subCaption={subCaption[0]}
-          steps={steps || 1}
-          setCurrentStep={setCurrentStep}
-          currentStep={currentStep}
-          data={data}
-          setData={setData}
-          onSubmit={onSubmit}
-          validedFields={validedFields}
-          setValidedFields={setValidedFields}
-        />
-      )}
-
-      {currentStep === 2 && (
-        <StepTwo
-          headingTitle={headingTitle[1]}
-          subCaption={subCaption[1]}
-          steps={steps}
-          setCurrentStep={setCurrentStep}
-          currentStep={currentStep}
-          setData={setData}
-          data={data}
-          onSubmit={onSubmit}
-          validedFields={validedFields}
-          setValidedFields={setValidedFields}
-        />
-      )}
+        {currentStep === 2 && (
+          <StepTwo
+            headingTitle={headingTitle[1]}
+            subCaption={subCaption[1]}
+            steps={steps}
+            setCurrentStep={setCurrentStep}
+            currentStep={currentStep}
+            setData={setData}
+            data={data}
+            onSubmit={onSubmit}
+            validedFields={validedFields}
+            setValidedFields={setValidedFields}
+          />
+        )}
+      </FormContainer>
 
       <StepButtons setCurrentStep={setCurrentStep} currentStep={currentStep} steps={steps} />
       {currentStep === 2 && (
