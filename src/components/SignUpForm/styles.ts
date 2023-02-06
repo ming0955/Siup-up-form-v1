@@ -81,7 +81,7 @@ export const HeadingTitle = styled.p`
   line-height: 26px;
   color: ${SF_FormColor.PRIMARY};
   margin: 10px 0 7px;
-  font-family: 'latoblack';
+  font-family: 'Latoblack';
 `
 
 export const SubCaption = styled.p`
