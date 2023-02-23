@@ -9,12 +9,18 @@ export interface IstepOneProps {
   onSubmit?: (data: IFormProps) => void
   validedFields: IvalidedFields
   setValidedFields: (data: IvalidedFields) => void
+  setSubmiting?: (isSubmiting: boolean) => void
 }
 
 export interface IStepButtons {
   setCurrentStep?: (step: number) => void
   currentStep: number
   steps?: number
+  isSubmiting?: boolean
+}
+
+export interface IstepButtonsSytleProps {
+  isSubmiting?: boolean
 }
 
 export interface IvalidedFields {

@@ -7,6 +7,7 @@ import {
   IinputWrapperStyleProps,
   IButtonGroupProps,
   IpreIconStyleProps,
+  IstepButtonsSytleProps,
 } from './types'
 
 export const SignUpContainer = styled.div`
@@ -298,7 +299,7 @@ export const ButtonWrapper = styled.div`
   position: relative;
 `
 
-export const StepButton = styled.button`
+export const StepButton = styled.button<IstepButtonsSytleProps>`
   position: relative;
   display: flex;
   overflow: hidden;
@@ -315,7 +316,7 @@ export const StepButton = styled.button`
   box-shadow: inset 0px -0.5px 0px 0.5px #4c6c0c;
   border-radius: 5px;
   border: none;
-  cursor: pointer;
+  cursor: ${(props) => (props.isSubmiting ? 'not-allowed' : 'pointer')};
 
   &:hover span {
     transform: scale(1.01);
@@ -323,6 +324,14 @@ export const StepButton = styled.button`
   &:active span {
     transform: scale(1);
   }
+
+  ${({ isSubmiting }) =>
+    isSubmiting &&
+    css`
+      span {
+        opacity: 0;
+      }
+    `}
 
   @media (min-width: 280px) {
     font-size: 18px !important;
@@ -441,4 +450,20 @@ export const RowSpace = styled.div`
   display: flex;
   width: 100;
   height: 16px;
+`
+export const Loader = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 `

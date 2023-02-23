@@ -39,6 +39,7 @@ export const StepTwo = ({
   onSubmit,
   validedFields,
   setValidedFields,
+  setSubmiting,
 }: IstepOneProps) => {
   const [subCaptionTexts, setSubCaptionTexts] = useState<string[]>([])
   const [cardNumber, setCardNumber] = useState('')
@@ -85,7 +86,11 @@ export const StepTwo = ({
     }
 
     if (steps === currentStep) {
-      if (onSubmit) onSubmit(newData)
+      setSubmiting && setSubmiting(true)
+      setTimeout(() => {
+        onSubmit && onSubmit(newData)
+        setSubmiting && setSubmiting(false)
+      }, 2000)
     } else {
       if (setCurrentStep) setCurrentStep(currentStep + 1)
       if (setData) setData(newData)

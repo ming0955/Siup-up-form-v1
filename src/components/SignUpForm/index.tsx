@@ -20,6 +20,8 @@ interface Props {
 
 const SignUpForm = ({ id, className, firstColor, secondColor, headingTitle, subCaption, steps, onSubmit }: Props) => {
   const [currentStep, setCurrentStep] = useState(1)
+  const [isSubmiting, setSubmiting] = useState(false)
+
   const [data, setData] = useState<IFormProps>({
     firstName: '',
     lastName: '',
@@ -79,11 +81,12 @@ const SignUpForm = ({ id, className, firstColor, secondColor, headingTitle, subC
             onSubmit={onSubmit}
             validedFields={validedFields}
             setValidedFields={setValidedFields}
+            setSubmiting={setSubmiting}
           />
         )}
       </FormContainer>
 
-      <StepButtons setCurrentStep={setCurrentStep} currentStep={currentStep} steps={steps} />
+      <StepButtons setCurrentStep={setCurrentStep} currentStep={currentStep} steps={steps} isSubmiting={isSubmiting} />
       {currentStep === 2 && (
         <TermsCondition>
           <p>We value your privacy. We will not see or rent your email address or phone number to third parties.</p>
