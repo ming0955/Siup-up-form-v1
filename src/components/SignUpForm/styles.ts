@@ -418,7 +418,7 @@ export const FirstName = styled(LastName)`
   margin-right: 10px;
 `
 
-export const CardNumber = styled.div`
+export const ShowCardNumber = styled.div`
   position: absolute;
   bottom: 26%;
   left: 7%;

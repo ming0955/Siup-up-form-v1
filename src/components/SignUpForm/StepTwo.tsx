@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, ChangeEvent, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FormControlLabel, Checkbox } from '@mui/material'
 import { IFormProps, IstepOneProps } from './types'
@@ -24,7 +24,7 @@ import {
   UserName,
   FirstName,
   LastName,
-  CardNumber,
+  ShowCardNumber,
   HeaderContainer,
 } from './styles'
 
@@ -41,21 +41,20 @@ export const StepTwo = ({
   setValidedFields,
   setSubmiting,
 }: IstepOneProps) => {
-  const [subCaptionTexts, setSubCaptionTexts] = useState<string[]>([])
-  const [cardNumber, setCardNumber] = useState('')
-  const [username, setUsername] = useState({
-    firstName: data?.firstName || '',
-    lastName: data?.lastName || '',
-  })
-
   const {
     register,
     handleSubmit,
     getValues,
     setError,
+    watch,
     formState: { errors, dirtyFields },
   } = useForm<IFormProps>({
     mode: 'all',
+  })
+  const [subCaptionTexts, setSubCaptionTexts] = useState<string[]>([])
+  const [username, setUsername] = useState({
+    firstName: data?.firstName || '',
+    lastName: data?.lastName || '',
   })
 
   useEffect(() => {
@@ -129,7 +128,7 @@ export const StepTwo = ({
   }
 
   const CardNumberBox = () => {
-    return <CardNumber>{cardNumber !== '' ? cardNumber : <CardNumberPlaceHolder />}</CardNumber>
+    return <ShowCardNumber>{watch('cardNumber') || <CardNumberPlaceHolder />}</ShowCardNumber>
   }
 
   return (
@@ -147,8 +146,9 @@ export const StepTwo = ({
       </HeaderContainer>
       <CardWrapper>
         <CardImage />
+        {/* display card number and user name */}
         <CardNumberBox />
-        {data?.firstName && <UserNameBox />}
+        <UserNameBox />
       </CardWrapper>
       <Form onSubmit={handleSubmit((data) => formSubmit(data))} id='stepTwoForm'>
         <Fields>
