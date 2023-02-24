@@ -244,6 +244,7 @@ export const StepOne = ({
             {errors.phoneNumber && <ErrorBoxs message={errors.phoneNumber.message || errorMessages.phoneNumber} />}
           </FieldBox>
         </Fields>
+
         <Fields>
           <FieldBox>
             <InputWrapper
