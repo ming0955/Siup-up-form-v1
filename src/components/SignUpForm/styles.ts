@@ -255,9 +255,10 @@ export const CardIcon = styled.div`
   display: flex;
   width: 61px;
   height: 25px;
+  justify-content: flex-end;
 
   img {
-    width: 100%;
+    width: auto;
   }
 `
 
@@ -400,6 +401,8 @@ export const UserName = styled.div`
   bottom: 13%;
   left: 7%;
   display: flex;
+  max-width: 85%;
+  overflow: hidden;
 `
 
 export const LastName = styled.p`

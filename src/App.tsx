@@ -38,6 +38,7 @@ function App() {
         ]}
         steps={2}
         onSubmit={onSubmit}
+        paymentMethod={'CreditCard'}
       />
     </div>
   )

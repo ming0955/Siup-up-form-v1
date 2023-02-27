@@ -15,11 +15,22 @@ interface Props {
   headingTitle: string[]
   subCaption: string[]
   steps?: number
+  paymentMethod?: string
   onSubmit: (data: IFormProps) => void
 }
 
-const SignUpForm = ({ id, className, firstColor, secondColor, headingTitle, subCaption, steps, onSubmit }: Props) => {
-  const [currentStep, setCurrentStep] = useState(1)
+const SignUpForm = ({
+  id,
+  className,
+  firstColor,
+  secondColor,
+  headingTitle,
+  subCaption,
+  steps,
+  paymentMethod,
+  onSubmit,
+}: Props) => {
+  const [currentStep, setCurrentStep] = useState(2)
   const [isSubmiting, setSubmiting] = useState(false)
 
   const [data, setData] = useState<IFormProps>({
@@ -82,6 +93,7 @@ const SignUpForm = ({ id, className, firstColor, secondColor, headingTitle, subC
             validedFields={validedFields}
             setValidedFields={setValidedFields}
             setSubmiting={setSubmiting}
+            paymentMethod={paymentMethod}
           />
         )}
       </FormContainer>

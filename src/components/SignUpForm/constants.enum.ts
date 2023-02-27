@@ -18,5 +18,7 @@ export const errorMessages: { [key: string]: string } = {
   zipCode: 'Please enter valid Zipcode.',
   phoneNumber: 'Please Enter your Phone Number.',
   email: 'Please enter your Email address.',
-  cardNumber: 'Please enter a valid IBAN.',
+  cardNumber: 'Please enter Card Number.',
+  expireDate: 'Please enter Expire Date.',
+  cvv: 'Please enter CVV.',
 }

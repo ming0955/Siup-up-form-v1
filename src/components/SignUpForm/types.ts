@@ -2,6 +2,7 @@ export interface IstepOneProps {
   headingTitle?: string
   subCaption?: string
   steps?: number
+  paymentMethod?: string
   setCurrentStep?: (step: number) => void
   currentStep: number
   setData?: (data: IFormProps) => void
@@ -32,6 +33,8 @@ export interface IvalidedFields {
   phoneNumber: boolean
   email: boolean
   cardNumber: boolean
+  expireDate?: boolean
+  cvv?: boolean
 }
 
 export interface IStep {
@@ -48,8 +51,8 @@ export interface IFieldsStyleProps {
 
 export interface IinputWrapperStyleProps {
   borderRemove: string | undefined
-  isDirty: boolean | undefined
-  isValid: boolean | undefined
+  isDirty?: boolean | undefined
+  isValid?: boolean | undefined
 }
 
 export interface IinputStyleProps {
@@ -74,7 +77,10 @@ export interface IFormProps {
   city?: string
   phoneNumber?: string
   email?: string
+  paymentMethod?: string
   cardNumber?: string
+  expireDate?: string
+  cvv?: string
 }
 
 export interface IButtonGroupProps {
