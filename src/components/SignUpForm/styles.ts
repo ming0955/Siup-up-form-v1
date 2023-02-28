@@ -401,7 +401,7 @@ export const UserName = styled.div`
   bottom: 13%;
   left: 7%;
   display: flex;
-  max-width: 85%;
+  max-width: 55%;
   overflow: hidden;
 `
 
@@ -469,4 +469,30 @@ export const Loader = styled.div`
     max-width: 100%;
     max-height: 100%;
   }
+`
+export const ExpireDateBox = styled.div`
+  position: absolute;
+  bottom: 15px;
+  right: 28px;
+  font-size: 8px;
+  color: #fff;
+`
+export const ShowCardExpireDate = styled.div`
+  position: relative;
+  display: flex;
+`
+
+export const ExpireDatePreLabel = styled.div`
+  width: 35px;
+`
+
+export const ExpireDateTopLabel = styled.div`
+  position: absolute;
+  top: -17px;
+  right: -8px;
+`
+
+export const ExpireDateValue = styled.div`
+  font-size: 16px;
+  width: 42px;
 `

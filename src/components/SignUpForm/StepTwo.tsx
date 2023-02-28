@@ -9,13 +9,13 @@ import { errorMessages } from './constants.enum'
 import {
   CardImage,
   CardNumberPlaceHolder,
-  CreditCardImage,
   SPAIcon,
   VisaIcon,
   MasterIcon,
   ExpressIcon,
   DiscoverIcon,
   CreditDefaultIcon,
+  CardExpireDatePlaceHolder,
 } from './Icons'
 
 import {
@@ -37,6 +37,11 @@ import {
   LastName,
   ShowCardNumber,
   HeaderContainer,
+  ExpireDateBox,
+  ShowCardExpireDate,
+  ExpireDatePreLabel,
+  ExpireDateValue,
+  ExpireDateTopLabel,
 } from './styles'
 
 export const StepTwo = ({
@@ -216,6 +221,16 @@ export const StepTwo = ({
     return <ShowCardNumber>{cardNum || <CardNumberPlaceHolder />}</ShowCardNumber>
   }
 
+  const CardExpireDate = () => (
+    <ExpireDateBox>
+      <ShowCardExpireDate>
+        <ExpireDatePreLabel>VALID THRU</ExpireDatePreLabel>
+        <ExpireDateValue>{cardExpireDate || <CardExpireDatePlaceHolder />}</ExpireDateValue>
+        <ExpireDateTopLabel>MONTH &nbsp; YEAR</ExpireDateTopLabel>
+      </ShowCardExpireDate>
+    </ExpireDateBox>
+  )
+
   return (
     <>
       <HeaderContainer>
@@ -234,6 +249,7 @@ export const StepTwo = ({
         {/* display card number and user name */}
         <CardNumberBox />
         <UserNameBox />
+        <CardExpireDate />
       </CardWrapper>
       <Form onSubmit={handleSubmit((data) => formSubmit(data))} id='stepTwoForm'>
         <Fields>
