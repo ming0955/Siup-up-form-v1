@@ -16,6 +16,7 @@ import {
   DiscoverIcon,
   CreditDefaultIcon,
   CardExpireDatePlaceHolder,
+  CreditCardImage,
 } from './Icons'
 
 import {
@@ -245,7 +246,7 @@ export const StepTwo = ({
         })}
       </HeaderContainer>
       <CardWrapper>
-        <CardImage />
+        {paymentMethod === 'CreditCard' || paymentMethod === 'CC' ? <CreditCardImage /> : <CardImage />}
         {/* display card number and user name */}
         <CardNumberBox />
         <UserNameBox />
