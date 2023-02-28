@@ -149,8 +149,7 @@ export const StepTwo = ({
     const expDateFormatter =
       expdate.replace(/\//g, '').substring(0, 2) +
       (expdate.length > 2 ? '/' : '') +
-      expdate.replace(/\//g, '').substring(2, 6)
-
+      expdate.replace(/\//g, '').substring(2, 4)
     setCardExpireDate(expDateFormatter)
   }
 
@@ -231,7 +230,7 @@ export const StepTwo = ({
         })}
       </HeaderContainer>
       <CardWrapper>
-        {paymentMethod === 'CreditCard' || paymentMethod === 'CC' ? <CreditCardImage /> : <CardImage />}
+        <CardImage />
         {/* display card number and user name */}
         <CardNumberBox />
         <UserNameBox />
@@ -306,13 +305,13 @@ export const StepTwo = ({
                     <ForwardIcon />
                   </PreIcon>
                   <Input
-                    placeholder='08 / 2025'
+                    placeholder='MM / YY'
                     autoComplete='off'
                     value={cardExpireDate}
                     {...register('expireDate', {
                       required: true,
                       pattern: {
-                        value: /^[0-12]{1,2}[0-9]{5}$/,
+                        value: /^[0-12]{1,2}[0-9]{3}$/,
                         message: 'Please enter a valid Date.',
                       },
                     })}
@@ -337,7 +336,7 @@ export const StepTwo = ({
                   <Input
                     type='password'
                     maxLength={4}
-                    placeholder='0849'
+                    placeholder='CVV'
                     {...register('cvv', {
                       required: true,
                       pattern: {
