@@ -376,6 +376,7 @@ export const StepTwo = ({
             control={
               <Checkbox
                 defaultChecked
+                required
                 size='small'
                 sx={{
                   color: '#88B431',
