@@ -30,7 +30,7 @@ const SignUpForm = ({
   paymentMethod,
   onSubmit,
 }: Props) => {
-  const [currentStep, setCurrentStep] = useState(2)
+  const [currentStep, setCurrentStep] = useState(1)
   const [isSubmiting, setSubmiting] = useState(false)
 
   const [data, setData] = useState<IFormProps>({

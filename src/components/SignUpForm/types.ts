@@ -86,3 +86,7 @@ export interface IFormProps {
 export interface IButtonGroupProps {
   marginTop?: boolean
 }
+
+export interface IshowCardNumberStyle {
+  credit?: boolean
+}

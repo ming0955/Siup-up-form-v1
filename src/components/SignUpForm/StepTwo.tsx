@@ -17,6 +17,7 @@ import {
   CreditDefaultIcon,
   CardExpireDatePlaceHolder,
   CreditCardImage,
+  CreditCardNumberPlaceHolder,
 } from './Icons'
 
 import {
@@ -91,6 +92,7 @@ export const StepTwo = ({
   const [cardNum, setCardNum] = useState('')
   const [cardIcon, setCardIcon] = useState<React.ReactNode>()
   const [cardExpireDate, setCardExpireDate] = useState('')
+  const creditCardPayment = paymentMethod === 'CreditCard' || paymentMethod === 'CC'
 
   useEffect(() => {
     const arr = formartSubcaption(subCaption)
@@ -131,7 +133,7 @@ export const StepTwo = ({
     setValue('cardNumber', result.replaceAll(' ', ''), { shouldValidate: true })
 
     let newCardNum = ''
-    if (paymentMethod === 'CreditCard' || paymentMethod === 'CC') {
+    if (creditCardPayment) {
       const _result = result.replace(/\s/g, '')
       for (let i = 0; i < _result.length; i++) {
         if (i % 4 == 0 && i > 0) newCardNum = newCardNum.concat(' ')
@@ -160,7 +162,7 @@ export const StepTwo = ({
   }
 
   useEffect(() => {
-    if (paymentMethod === 'CreditCard' || paymentMethod === 'CC') {
+    if (creditCardPayment) {
       setPattern(CreditPattern)
       setCardIcon(<CreditDefaultIcon />)
     } else {
@@ -219,18 +221,21 @@ export const StepTwo = ({
   }
 
   const CardNumberBox = () => {
-    return <ShowCardNumber>{cardNum || <CardNumberPlaceHolder />}</ShowCardNumber>
+    const placeholder = creditCardPayment ? <CreditCardNumberPlaceHolder /> : <CardNumberPlaceHolder />
+    return <ShowCardNumber credit={creditCardPayment}>{cardNum || placeholder}</ShowCardNumber>
   }
 
-  const CardExpireDate = () => (
-    <ExpireDateBox>
-      <ShowCardExpireDate>
-        <ExpireDatePreLabel>VALID THRU</ExpireDatePreLabel>
-        <ExpireDateValue>{cardExpireDate || <CardExpireDatePlaceHolder />}</ExpireDateValue>
-        <ExpireDateTopLabel>MONTH &nbsp; YEAR</ExpireDateTopLabel>
-      </ShowCardExpireDate>
-    </ExpireDateBox>
-  )
+  const CardExpireDate = () => {
+    return (
+      <ExpireDateBox>
+        <ShowCardExpireDate>
+          <ExpireDatePreLabel>VALID THRU</ExpireDatePreLabel>
+          <ExpireDateValue>{cardExpireDate || <CardExpireDatePlaceHolder />}</ExpireDateValue>
+          <ExpireDateTopLabel>MONTH &nbsp; YEAR</ExpireDateTopLabel>
+        </ShowCardExpireDate>
+      </ExpireDateBox>
+    )
+  }
 
   return (
     <>
@@ -246,11 +251,11 @@ export const StepTwo = ({
         })}
       </HeaderContainer>
       <CardWrapper>
-        {paymentMethod === 'CreditCard' || paymentMethod === 'CC' ? <CreditCardImage /> : <CardImage />}
+        {creditCardPayment ? <CreditCardImage /> : <CardImage />}
         {/* display card number and user name */}
         <CardNumberBox />
         <UserNameBox />
-        <CardExpireDate />
+        {creditCardPayment && <CardExpireDate />}
       </CardWrapper>
       <Form onSubmit={handleSubmit((data) => formSubmit(data))} id='stepTwoForm'>
         <Fields>
@@ -289,11 +294,7 @@ export const StepTwo = ({
                 <ForwardIcon />
               </PreIcon>
               <Input
-                placeholder={
-                  paymentMethod === 'CreditCard' || paymentMethod === 'CC'
-                    ? '4242 4242 4242 4242'
-                    : '0000 0000 0000 0000 0000 00'
-                }
+                placeholder={creditCardPayment ? '4242 4242 4242 4242' : '0000 0000 0000 0000 0000 00'}
                 autoComplete='off'
                 value={cardNum}
                 {...register('cardNumber', {
@@ -309,7 +310,7 @@ export const StepTwo = ({
           </FieldBox>
         </Fields>
 
-        {(paymentMethod === 'CreditCard' || paymentMethod === 'CC') && (
+        {creditCardPayment && (
           <div style={{ display: 'flex' }}>
             <Fields>
               <FieldBox>

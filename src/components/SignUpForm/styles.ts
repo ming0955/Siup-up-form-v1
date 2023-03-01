@@ -8,6 +8,7 @@ import {
   IButtonGroupProps,
   IpreIconStyleProps,
   IstepButtonsSytleProps,
+  IshowCardNumberStyle,
 } from './types'
 
 export const SignUpContainer = styled.div`
@@ -421,7 +422,7 @@ export const FirstName = styled(LastName)`
   margin-right: 10px;
 `
 
-export const ShowCardNumber = styled.div`
+export const ShowCardNumber = styled.div<IshowCardNumberStyle>`
   position: absolute;
   bottom: 26%;
   left: 7%;
@@ -431,6 +432,16 @@ export const ShowCardNumber = styled.div`
   @media (min-width: 481px) {
     font-size: 17px;
   }
+
+  ${({ credit }) =>
+    credit &&
+    css`
+      bottom: 33%;
+
+      @media (min-width: 481px) {
+        font-size: 26px;
+      }
+    `}
 `
 
 export const TermsCondition = styled.div`
@@ -473,7 +484,7 @@ export const Loader = styled.div`
 export const ExpireDateBox = styled.div`
   position: absolute;
   bottom: 15px;
-  right: 28px;
+  right: 35px;
   font-size: 8px;
   color: #fff;
 `
@@ -483,16 +494,20 @@ export const ShowCardExpireDate = styled.div`
 `
 
 export const ExpireDatePreLabel = styled.div`
-  width: 35px;
+  width: 30px;
 `
 
 export const ExpireDateTopLabel = styled.div`
   position: absolute;
-  top: -17px;
-  right: -8px;
+  top: -15px;
+  right: -7px;
 `
 
 export const ExpireDateValue = styled.div`
   font-size: 16px;
   width: 42px;
+
+  svg {
+    width: 100%;
+  }
 `
