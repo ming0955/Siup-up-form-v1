@@ -45,7 +45,6 @@ import {
   ExpireDateValue,
   ExpireDateTopLabel,
 } from './styles'
-import { isBoolean } from 'util'
 
 export const StepTwo = ({
   headingTitle,
