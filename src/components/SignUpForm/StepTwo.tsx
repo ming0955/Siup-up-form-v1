@@ -45,6 +45,7 @@ import {
   ExpireDateValue,
   ExpireDateTopLabel,
 } from './styles'
+import { isBoolean } from 'util'
 
 export const StepTwo = ({
   headingTitle,
@@ -130,6 +131,10 @@ export const StepTwo = ({
 
   const handleChangeCardNumber = (e: ChangeEvent<HTMLInputElement>) => {
     const result = e.target.value
+    if (result.length > 19) {
+      e.preventDefault()
+      return
+    }
     setValue('cardNumber', result.replaceAll(' ', ''), { shouldValidate: true })
 
     let newCardNum = ''
@@ -149,9 +154,53 @@ export const StepTwo = ({
     setCardNum(newCardNum)
   }
 
-  const handleChangeExpireDate = (e: ChangeEvent<HTMLInputElement>) => {
+  const checkValidDate = (date: string) => {
+    const yy = Number('20' + date.split('/')[1])
+    const mm = Number(date.split('/')[0])
+    const expireDate = Number(new Date(yy, mm, 1, 0, 0, 0, 0))
+    const today = new Date()
+    const expectedDate = new Date().setMonth(today.getMonth() + 1)
+    return expireDate > expectedDate
+  }
+
+  const handleChangeExpireDate = (e: any) => {
+    e.target.value = e.target.value
+      .replace(
+        /^([1-9]\/|[2-9])$/g,
+        '0$1/', // 3 > 03/
+      )
+      .replace(
+        /^(0[1-9]|1[0-2])$/g,
+        '$1/', // 11 > 11/
+      )
+      .replace(
+        /^([0-1])([3-9])$/g,
+        '0$1/$2', // 13 > 01/3
+      )
+      .replace(
+        /^(0?[1-9]|1[0-2])([0-9]{2})$/g,
+        '$1/$2', // 141 > 01/41
+      )
+      .replace(
+        /^([0]+)\/|[0]+$/g,
+        '0', // 0/ > 0 and 00 > 0
+      )
+      .replace(
+        // eslint-disable-next-line no-useless-escape
+        /[^\d\/]|^[\/]*$/g,
+        '', // To allow only digits and `/`
+      )
+      .replace(
+        /\/\//g,
+        '/', // Prevent entering more than 1 `/`
+      )
+
     const result = e.target.value
-    setValue('expireDate', result.replaceAll('/', ''), { shouldValidate: true })
+
+    if (result.length > 5) {
+      e.preventDefault()
+      return
+    }
 
     const expdate = result
     const expDateFormatter =
@@ -159,6 +208,17 @@ export const StepTwo = ({
       (expdate.length > 2 ? '/' : '') +
       expdate.replace(/\//g, '').substring(2, 4)
     setCardExpireDate(expDateFormatter)
+
+    if (result.length === 5) {
+      const isValidDate = checkValidDate(result)
+      console.log('dd', isValidDate)
+
+      if (isValidDate) {
+        setValue('expireDate', result.replaceAll('/', ''), { shouldValidate: true })
+      } else {
+        setError('expireDate', { message: 'Please enter a valid Date.' })
+      }
+    }
   }
 
   useEffect(() => {
@@ -329,7 +389,7 @@ export const StepTwo = ({
                     {...register('expireDate', {
                       required: true,
                       pattern: {
-                        value: /^[0-12]{1,2}[0-9]{3}$/,
+                        value: /^(0[1-9]|1[0-2])\/?([0-9]{2})$/,
                         message: 'Please enter a valid Date.',
                       },
                     })}
