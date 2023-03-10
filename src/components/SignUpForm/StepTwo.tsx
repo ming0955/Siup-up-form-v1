@@ -210,7 +210,6 @@ export const StepTwo = ({
 
     if (result.length === 5) {
       const isValidDate = checkValidDate(result)
-      console.log('dd', isValidDate)
 
       if (isValidDate) {
         setValue('expireDate', result.replaceAll('/', ''), { shouldValidate: true })
