@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { SignUpForm } from './components/index'
+
+import toast from 'react-hot-toast'
 
 interface IFormProps {
   firstName?: string
@@ -13,9 +15,24 @@ interface IFormProps {
 }
 
 function App() {
-  const onSubmit = (data: IFormProps) => {
-    console.log(data)
-  }
+  const onSubmit = useCallback(async (data: IFormProps, e?: { preventDefault: () => void }) => {
+    e && e.preventDefault()
+    try {
+      // setIsLoading(true);
+      const response = await fetch('https://dummyjson.com/users/ad', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data }),
+      })
+      const res = await response.json()
+      console.log('res: ', res)
+      toast.success('Your account has been registered successfully')
+      // router.push('/receipt')
+    } catch (error) {
+      console.log('error', error)
+      toast.error('Something went wrong in registering')
+    }
+  }, [])
 
   return (
     <div

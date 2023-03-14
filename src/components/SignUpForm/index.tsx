@@ -16,7 +16,7 @@ interface Props {
   subCaption: string[]
   steps?: number
   paymentMethod?: string
-  onSubmit: (data: IFormProps) => void
+  onSubmit: (data: IFormProps, e?: { preventDefault: () => void }) => Promise<void>
 }
 
 const SignUpForm = ({

@@ -247,7 +247,7 @@ export const StepTwo = ({
       setTimeout(() => {
         onSubmit && onSubmit(newData)
         setSubmiting && setSubmiting(false)
-      }, 2000)
+      }, 1000)
     } else {
       if (setCurrentStep) setCurrentStep(currentStep + 1)
       if (setData) setData(newData)
