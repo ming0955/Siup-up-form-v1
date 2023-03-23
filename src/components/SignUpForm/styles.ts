@@ -78,7 +78,7 @@ export const HeaderContainer = styled.div`
 export const HeadingTitle = styled.p`
   display: flex;
   font-style: normal;
-  font-size: 22px;
+  font-size: 24px;
   line-height: 26px;
   color: ${SF_FormColor.PRIMARY};
   margin: 10px 0 7px;
@@ -91,7 +91,7 @@ export const SubCaption = styled.p`
   display: flex;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 18px;
   color: #747474;
   font-family: 'Lato';
@@ -236,6 +236,10 @@ export const ErrorText = styled.p<ErrorTextStyleProps>`
   svg {
     font-size: 12px;
     font-weight: 100;
+  }
+
+  @media (min-width: 280px) {
+    font-size: 12px;
   }
 `
 
@@ -424,13 +428,20 @@ export const FirstName = styled(LastName)`
 
 export const ShowCardNumber = styled.div<IshowCardNumberStyle>`
   position: absolute;
-  bottom: 26%;
+  bottom: 27%;
   left: 7%;
+  min-width: 60%;
+  max-width: 85%;
   font-size: 15px;
   color: #fff;
   text-transform: uppercase;
+
   @media (min-width: 481px) {
-    font-size: 17px;
+    font-size: 16px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 18px;
   }
 
   ${({ credit }) =>

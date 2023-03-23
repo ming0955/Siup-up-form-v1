@@ -19,7 +19,7 @@ function App() {
     e && e.preventDefault()
     try {
       // setIsLoading(true);
-      const response = await fetch('https://dummyjson.com/users/ad', {
+      const response = await fetch('https://dummyjson.com/users/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data }),
@@ -55,7 +55,7 @@ function App() {
         ]}
         steps={2}
         onSubmit={onSubmit}
-        paymentMethod={'CreditCard'}
+        paymentMethod={''}
       />
     </div>
   )
