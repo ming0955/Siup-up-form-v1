@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react'
-import { SignUpForm } from './components/index'
+import { SignUpForm, useSignUpForm } from './components/index'
 
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 interface IFormProps {
   firstName?: string
@@ -15,24 +16,50 @@ interface IFormProps {
 }
 
 function App() {
-  const onSubmit = useCallback(async (data: IFormProps, e?: { preventDefault: () => void }) => {
-    e && e.preventDefault()
-    try {
-      // setIsLoading(true);
-      const response = await fetch('https://dummyjson.com/users/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data }),
-      })
-      const res = await response.json()
-      console.log('res: ', res)
-      toast.success('Your account has been registered successfully')
-      // router.push('/receipt')
-    } catch (error) {
-      console.log('error', error)
-      toast.error('Something went wrong in registering')
-    }
-  }, [])
+  const { steps, currentStep, isFirstStep, isLastStep, loading, setLoading, back, next } = useSignUpForm([
+    'informationForm',
+    'paymentForm',
+  ])
+
+  const onSubmit = useCallback(
+    async (data: IFormProps, e?: { preventDefault: () => void }) => {
+      setLoading(true)
+
+      if (isFirstStep) {
+        e && e.preventDefault()
+        try {
+          const response = await axios.post('https://fakestoreapi.com/products', data)
+          setLoading(false)
+          next()
+          console.log('1st response', response?.data)
+        } catch (error) {
+          console.error(error)
+          toast.error('Something went wrong. Please try again later.')
+        }
+      } else if (isLastStep) {
+        e && e.preventDefault()
+        try {
+          const response = await fetch('https://dummyjson.com/users/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data }),
+          })
+          const res = await response.json()
+          console.log('2nd response: ', res)
+          if (response.ok) {
+            toast.success('Your account has been registered successfully')
+            // router.push('/receipt');
+          } else {
+            throw new Error('Something went wrong. Please try again later.')
+          }
+        } catch (error) {
+          console.error(error)
+          toast.error('Something went wrong. Please try again later.')
+        }
+      }
+    },
+    [currentStep, isFirstStep, isLastStep],
+  )
 
   return (
     <div
@@ -53,9 +80,12 @@ function App() {
           'Please fill out the following fields to create an account: *Email and password are case sensitive',
           '',
         ]}
-        steps={2}
+        steps={steps}
+        currentStep={currentStep}
+        loading={loading}
+        back={back}
         onSubmit={onSubmit}
-        paymentMethod={''}
+        paymentMethod={'CC'}
       />
     </div>
   )

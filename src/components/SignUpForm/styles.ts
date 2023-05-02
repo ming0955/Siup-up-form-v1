@@ -30,7 +30,7 @@ export const StepWrapper = styled.div`
   width: 50%;
 `
 
-export const SteperLine = styled.div<IStep>`
+export const StepperLine = styled.div<IStep>`
   position: relative;
   height: 2px;
   background: ${(props) =>
@@ -58,7 +58,7 @@ export const StepNum = styled.span<IStep>`
   right: ${(props) => (props.stepNum === 1 ? '63%' : 'unset')};
   left: ${(props) => (props.stepNum === 2 ? '63%' : 'unset')};
   color: ${(props) => (props.active ? SF_FormColor.TEXTACTIVE : SF_FormColor.TEXTCOLOR)};
-  color: ${(props) => props.sucess && SF_FormColor.PRIMARY};
+  color: ${(props) => props.success && SF_FormColor.PRIMARY};
 `
 
 export const FormContainer = styled.div`
@@ -322,7 +322,7 @@ export const StepButton = styled.button<IstepButtonsSytleProps>`
   box-shadow: inset 0px -0.5px 0px 0.5px #4c6c0c;
   border-radius: 5px;
   border: none;
-  cursor: ${(props) => (props.isSubmiting ? 'not-allowed' : 'pointer')};
+  cursor: ${(props) => (props.isSubmitting ? 'not-allowed' : 'pointer')};
 
   &:hover span {
     transform: scale(1.01);
@@ -331,8 +331,8 @@ export const StepButton = styled.button<IstepButtonsSytleProps>`
     transform: scale(1);
   }
 
-  ${({ isSubmiting }) =>
-    isSubmiting &&
+  ${({ isSubmitting }) =>
+    isSubmitting &&
     css`
       span {
         opacity: 0;

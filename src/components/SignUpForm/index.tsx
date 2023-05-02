@@ -14,8 +14,12 @@ interface Props {
   secondColor?: string
   headingTitle: string[]
   subCaption: string[]
-  steps?: number
+  steps: number
+  loading: boolean
+  currentStep: number
   paymentMethod?: string
+  isLoading?: boolean
+  back?: () => void
   onSubmit: (data: IFormProps, e?: { preventDefault: () => void }) => Promise<void>
 }
 
@@ -27,12 +31,12 @@ const SignUpForm = ({
   headingTitle,
   subCaption,
   steps,
+  loading,
+  currentStep,
   paymentMethod,
   onSubmit,
+  back,
 }: Props) => {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [isSubmiting, setSubmiting] = useState(false)
-
   const [data, setData] = useState<IFormProps>({
     firstName: '',
     lastName: '',
@@ -43,7 +47,7 @@ const SignUpForm = ({
     cardNumber: '',
   })
 
-  const [validedFields, setValidedFields] = useState({
+  const [validatedFields, setValidatedFields] = useState({
     firstName: false,
     lastName: false,
     address: false,
@@ -70,13 +74,12 @@ const SignUpForm = ({
             headingTitle={headingTitle[0]}
             subCaption={subCaption[0]}
             steps={steps || 1}
-            setCurrentStep={setCurrentStep}
-            currentStep={currentStep}
             data={data}
+            currentStep={currentStep}
+            validatedFields={validatedFields}
             setData={setData}
             onSubmit={onSubmit}
-            validedFields={validedFields}
-            setValidedFields={setValidedFields}
+            setValidatedFields={setValidatedFields}
           />
         )}
 
@@ -85,20 +88,18 @@ const SignUpForm = ({
             headingTitle={headingTitle[1]}
             subCaption={subCaption[1]}
             steps={steps}
-            setCurrentStep={setCurrentStep}
             currentStep={currentStep}
             setData={setData}
             data={data}
             onSubmit={onSubmit}
-            validedFields={validedFields}
-            setValidedFields={setValidedFields}
-            setSubmiting={setSubmiting}
+            validatedFields={validatedFields}
+            setValidatedFields={setValidatedFields}
             paymentMethod={paymentMethod}
           />
         )}
       </FormContainer>
 
-      <StepButtons setCurrentStep={setCurrentStep} currentStep={currentStep} steps={steps} isSubmiting={isSubmiting} />
+      <StepButtons currentStep={currentStep} steps={steps} loading={loading} back={back} />
       {currentStep === 2 && (
         <TermsCondition>
           <p>We value your privacy. We will not see or rent your email address or phone number to third parties.</p>

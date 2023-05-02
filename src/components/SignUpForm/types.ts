@@ -7,21 +7,22 @@ export interface IstepOneProps {
   currentStep: number
   setData?: (data: IFormProps) => void
   data?: IFormProps
+  onNext?: (data: IFormProps) => void
   onSubmit?: (data: IFormProps) => void
-  validedFields: IvalidedFields
-  setValidedFields: (data: IvalidedFields) => void
-  setSubmiting?: (isSubmiting: boolean) => void
+  validatedFields: IvalidedFields
+  setValidatedFields: (data: IvalidedFields) => void
 }
 
 export interface IStepButtons {
   setCurrentStep?: (step: number) => void
   currentStep: number
   steps?: number
-  isSubmiting?: boolean
+  loading?: boolean
+  back?: () => void
 }
 
 export interface IstepButtonsSytleProps {
-  isSubmiting?: boolean
+  isSubmitting?: boolean
 }
 
 export interface IvalidedFields {
@@ -42,7 +43,7 @@ export interface IStep {
   stepNum?: number
   firstColor?: string
   secondColor?: string
-  sucess?: boolean
+  success?: boolean
 }
 
 export interface IFieldsStyleProps {

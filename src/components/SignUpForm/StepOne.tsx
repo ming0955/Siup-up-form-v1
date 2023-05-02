@@ -23,14 +23,11 @@ import { errorMessages } from './constants.enum'
 export const StepOne = ({
   headingTitle,
   subCaption = '',
-  steps,
-  setCurrentStep,
-  currentStep,
   data,
+  validatedFields,
   setData,
   onSubmit,
-  validedFields,
-  setValidedFields,
+  setValidatedFields,
 }: IstepOneProps) => {
   const [subCaptionTexts, setSubCaptionTexts] = useState<string[]>([])
 
@@ -64,13 +61,9 @@ export const StepOne = ({
     return subCaption.split(':')
   }
 
-  const formSubmit = (formData: IFormProps) => {
-    if (steps === currentStep) {
-      if (onSubmit) onSubmit(formData)
-    } else {
-      if (setCurrentStep) setCurrentStep(currentStep + 1)
-      if (setData) setData(formData)
-    }
+  const formSubmit = async (formData: IFormProps) => {
+    setData && setData(formData)
+    onSubmit && onSubmit(formData)
   }
 
   const ErrorBoxs = ({ message }: { message: string }) => {
@@ -86,8 +79,8 @@ export const StepOne = ({
 
   const checkValid = (key: keyType) => {
     const val = getValues(key)
-    setValidedFields({
-      ...validedFields,
+    setValidatedFields({
+      ...validatedFields,
       [key]: val && val !== '' && !errors[key] ? true : false,
     })
     if (!val) {
@@ -115,9 +108,9 @@ export const StepOne = ({
             <InputWrapper
               borderRemove={'right'}
               isDirty={dirtyFields.firstName && !errors.firstName}
-              isValid={validedFields.firstName}
+              isValid={validatedFields.firstName}
             >
-              <PreIcon isValid={validedFields.firstName}>
+              <PreIcon isValid={validatedFields.firstName}>
                 <ForwardIcon />
               </PreIcon>
               <Input
@@ -137,7 +130,7 @@ export const StepOne = ({
             <InputWrapper
               borderRemove={'left'}
               isDirty={dirtyFields.lastName && !errors.lastName}
-              isValid={validedFields.lastName}
+              isValid={validatedFields.lastName}
             >
               <MiddleBorder />
               <Input
@@ -160,9 +153,9 @@ export const StepOne = ({
             <InputWrapper
               borderRemove='none'
               isDirty={dirtyFields.address && !errors.address}
-              isValid={validedFields.address}
+              isValid={validatedFields.address}
             >
-              <PreIcon isValid={validedFields.address}>
+              <PreIcon isValid={validatedFields.address}>
                 <ForwardIcon />
               </PreIcon>
               <Input
@@ -181,9 +174,9 @@ export const StepOne = ({
             <InputWrapper
               borderRemove={'right'}
               isDirty={dirtyFields.zipCode && !errors.zipCode}
-              isValid={validedFields.zipCode}
+              isValid={validatedFields.zipCode}
             >
-              <PreIcon isValid={validedFields.zipCode}>
+              <PreIcon isValid={validatedFields.zipCode}>
                 <ForwardIcon />
               </PreIcon>
               <Input
@@ -196,7 +189,11 @@ export const StepOne = ({
             {errors.zipCode && <ErrorBoxs message={errors.zipCode.message || errorMessages.zipCode} />}
           </FieldBox>
           <FieldBox>
-            <InputWrapper borderRemove={'left'} isDirty={dirtyFields.city && !errors.city} isValid={validedFields.city}>
+            <InputWrapper
+              borderRemove={'left'}
+              isDirty={dirtyFields.city && !errors.city}
+              isValid={validatedFields.city}
+            >
               <MiddleBorder />
               <Input
                 placeholder='City'
@@ -214,9 +211,9 @@ export const StepOne = ({
             <InputWrapper
               borderRemove='none'
               isDirty={dirtyFields.phoneNumber && !errors.phoneNumber}
-              isValid={validedFields.phoneNumber}
+              isValid={validatedFields.phoneNumber}
             >
-              <PreIcon isValid={validedFields.phoneNumber}>
+              <PreIcon isValid={validatedFields.phoneNumber}>
                 <ForwardIcon />
               </PreIcon>
               <Controller
@@ -250,9 +247,9 @@ export const StepOne = ({
             <InputWrapper
               borderRemove='none'
               isDirty={dirtyFields.email && !errors.email}
-              isValid={validedFields.email}
+              isValid={validatedFields.email}
             >
-              <PreIcon isValid={validedFields.email}>
+              <PreIcon isValid={validatedFields.email}>
                 <ForwardIcon />
               </PreIcon>
               <Input

@@ -49,15 +49,11 @@ import {
 export const StepTwo = ({
   headingTitle,
   subCaption = '',
-  steps,
-  setCurrentStep,
-  currentStep,
   setData,
   data,
   onSubmit,
-  validedFields,
-  setValidedFields,
-  setSubmiting,
+  validatedFields,
+  setValidatedFields,
   paymentMethod,
 }: IstepOneProps) => {
   const {
@@ -247,16 +243,8 @@ export const StepTwo = ({
       newData.cvv = formData.cvv
     }
 
-    if (steps === currentStep) {
-      setSubmiting && setSubmiting(true)
-      setTimeout(() => {
-        onSubmit && onSubmit(newData)
-        setSubmiting && setSubmiting(false)
-      }, 1000)
-    } else {
-      if (setCurrentStep) setCurrentStep(currentStep + 1)
-      if (setData) setData(newData)
-    }
+    setData && setData(newData)
+    onSubmit && onSubmit(newData)
   }
 
   const ErrorBoxs = ({ message }: { message: string }) => {
@@ -272,8 +260,8 @@ export const StepTwo = ({
 
   const checkValid = (key: keyType) => {
     const val = getValues(key)
-    setValidedFields({
-      ...validedFields,
+    setValidatedFields({
+      ...validatedFields,
       [key]: val && val !== '' && !errors[key] ? true : false,
     })
     if (!val) {
@@ -358,9 +346,9 @@ export const StepTwo = ({
             <InputWrapper
               borderRemove='none'
               isDirty={dirtyFields.cardNumber && !errors.cardNumber}
-              isValid={validedFields.cardNumber}
+              isValid={validatedFields.cardNumber}
             >
-              <PreIcon isValid={validedFields.cardNumber}>
+              <PreIcon isValid={validatedFields.cardNumber}>
                 <ForwardIcon />
               </PreIcon>
               <Input
@@ -389,9 +377,9 @@ export const StepTwo = ({
                 <InputWrapper
                   borderRemove={'none'}
                   isDirty={dirtyFields.expireDate && !errors.expireDate}
-                  isValid={validedFields.expireDate}
+                  isValid={validatedFields.expireDate}
                 >
-                  <PreIcon isValid={validedFields.expireDate}>
+                  <PreIcon isValid={validatedFields.expireDate}>
                     <ForwardIcon />
                   </PreIcon>
                   <Input
@@ -418,9 +406,9 @@ export const StepTwo = ({
                 <InputWrapper
                   borderRemove={'none'}
                   isDirty={dirtyFields.cvv && !errors.cvv}
-                  isValid={validedFields.cvv}
+                  isValid={validatedFields.cvv}
                 >
-                  <PreIcon isValid={validedFields.cvv}>
+                  <PreIcon isValid={validatedFields.cvv}>
                     <ForwardIcon />
                   </PreIcon>
                   <Input
