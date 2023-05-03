@@ -18,48 +18,44 @@ interface IFormProps {
 function App() {
   const { steps, currentStep, isFirstStep, isLastStep, loading, setLoading, back, next } = useSignUpForm([
     'informationForm',
-    'paymentForm',
   ])
 
-  const onSubmit = useCallback(
-    async (data: IFormProps, e?: { preventDefault: () => void }) => {
-      setLoading(true)
+  const onSubmit = useCallback(async (data: IFormProps, e?: { preventDefault: () => void }) => {
+    setLoading(true)
 
-      if (isFirstStep) {
-        e && e.preventDefault()
-        try {
-          const response = await axios.post('https://fakestoreapi.com/products', data)
-          setLoading(false)
-          next()
-          console.log('1st response', response?.data)
-        } catch (error) {
-          console.error(error)
-          toast.error('Something went wrong. Please try again later.')
-        }
-      } else if (isLastStep) {
-        e && e.preventDefault()
-        try {
-          const response = await fetch('https://dummyjson.com/users/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data }),
-          })
-          const res = await response.json()
-          console.log('2nd response: ', res)
-          if (response.ok) {
-            toast.success('Your account has been registered successfully')
-            // router.push('/receipt');
-          } else {
-            throw new Error('Something went wrong. Please try again later.')
-          }
-        } catch (error) {
-          console.error(error)
-          toast.error('Something went wrong. Please try again later.')
-        }
+    if (isFirstStep) {
+      e && e.preventDefault()
+      try {
+        const response = await axios.post('https://fakestoreapi.com/products', data)
+        setLoading(false)
+        next()
+        console.log('1st response', response?.data)
+      } catch (error) {
+        console.error(error)
+        toast.error('Something went wrong. Please try again later.')
       }
-    },
-    [currentStep, isFirstStep, isLastStep],
-  )
+    } else if (isLastStep) {
+      e && e.preventDefault()
+      try {
+        const response = await fetch('https://dummyjson.com/users/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data }),
+        })
+        const res = await response.json()
+        console.log('2nd response: ', res)
+        if (response.ok) {
+          toast.success('Your account has been registered successfully')
+          // router.push('/receipt');
+        } else {
+          throw new Error('Something went wrong. Please try again later.')
+        }
+      } catch (error) {
+        console.error(error)
+        toast.error('Something went wrong. Please try again later.')
+      }
+    }
+  }, [])
 
   return (
     <div
@@ -75,10 +71,9 @@ function App() {
       <SignUpForm
         firstColor='#88B431'
         secondColor='#D9D9D9'
-        headingTitle={['Enter Your Information', 'Enter Your Payment Details']}
+        headingTitle={['Enter Your Information']}
         subCaption={[
           'Please fill out the following fields to create an account: *Email and password are case sensitive',
-          '',
         ]}
         steps={steps}
         currentStep={currentStep}
