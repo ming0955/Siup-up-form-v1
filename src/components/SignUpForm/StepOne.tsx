@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-phone-input-2'
-import CancelIcon from '@mui/icons-material/Cancel'
+// import CancelIcon from '@mui/icons-material/Cancel'
 import ForwardIcon from '@mui/icons-material/Forward'
 import { IstepOneProps, IFormProps } from './types'
 import * as PSC from './phoneInput.style'
@@ -30,7 +30,7 @@ export const StepOne = ({
   setValidatedFields,
 }: IstepOneProps) => {
   const [subCaptionTexts, setSubCaptionTexts] = useState<string[]>([])
-
+  const [initCountry, setInitCountry] = useState('us')
   const {
     register,
     handleSubmit,
@@ -61,6 +61,19 @@ export const StepOne = ({
     return subCaption.split(':')
   }
 
+  useEffect(() => {
+    fetch('https://geolocation-db.com/json/')
+      .then((response) => response.json())
+      .then((data) => {
+        const _country = (data?.country_code || 'us').toLowerCase()
+        setInitCountry(_country)
+      })
+      .catch((error) => {
+        console.error('Error fetching IP address:', error)
+        setInitCountry('us')
+      })
+  }, [])
+
   const formSubmit = async (formData: IFormProps) => {
     setData && setData(formData)
     onSubmit && onSubmit(formData)
@@ -69,7 +82,7 @@ export const StepOne = ({
   const ErrorBoxs = ({ message }: { message: string }) => {
     return (
       <ErrorText>
-        <CancelIcon />
+        {/* <CancelIcon /> */}
         &nbsp;{message}
       </ErrorText>
     )
@@ -130,7 +143,7 @@ export const StepOne = ({
             <InputWrapper
               borderRemove={'left'}
               isDirty={dirtyFields.lastName && !errors.lastName}
-              isValid={validatedFields.lastName}
+              // isValid={validatedFields.lastName}
             >
               <MiddleBorder />
               <Input
@@ -225,9 +238,9 @@ export const StepOne = ({
                 render={({ field: { value, onChange } }) => (
                   <PSC.PhoneInputWrapper>
                     <PhoneInput
-                      country={'gb'}
-                      preferredCountries={['gb']}
-                      regions={['europe']}
+                      country={initCountry}
+                      preferredCountries={[initCountry]}
+                      regions={['america', 'europe', 'asia']}
                       disableCountryCode={true}
                       placeholder={'Phone Number'}
                       value={value}

@@ -120,13 +120,6 @@ export const InputWrapper = styled.div<IinputWrapperStyleProps>`
   height: 35px;
   border: 1px solid ${SF_FormColor.BORDER};
 
-  ${({ isValid }) =>
-    isValid &&
-    css`
-      background-color: #f4ffed;
-      border-color: ${SF_FormColor.PRIMARY};
-    `};
-
   ${({ borderRemove }) =>
     borderRemove && borderRemove === 'left'
       ? css`
@@ -151,9 +144,9 @@ export const InputWrapper = styled.div<IinputWrapperStyleProps>`
           }
         `};
 
-  &:focus-within {
+  /* &:focus-within {
     border-color: ${SF_FormColor.PRIMARY};
-  }
+  } */
 
   & input {
     color: ${SF_FormColor.TEXTACTIVE} !important;
@@ -170,7 +163,7 @@ export const PreIcon = styled.div<IpreIconStyleProps>`
   align-items: center;
   width: 15px;
   height: 12px;
-  background-color: ${(props) => (props.isValid ? SF_FormColor.PRIMARY : SF_FormColor.PLACEHOLDER)};
+  background-color: ${SF_FormColor.PLACEHOLDER};
 
   svg {
     font-size: 12px;
@@ -269,7 +262,7 @@ export const CardIcon = styled.div`
 
 export const AgreeBox = styled.div`
   display: flex;
-  margin-top: -0.7em;
+  margin-top: -0.3em;
   align-items: center;
 
   input {

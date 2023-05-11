@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { FormControlLabel, Checkbox } from '@mui/material'
 import { IFormProps, IstepOneProps } from './types'
 import ForwardIcon from '@mui/icons-material/Forward'
-import CancelIcon from '@mui/icons-material/Cancel'
+// import CancelIcon from '@mui/icons-material/Cancel'
 import { errorMessages } from './constants.enum'
 import {
   CardImage,
@@ -27,13 +27,13 @@ import {
   Form,
   Fields,
   Input,
-  ErrorText,
+  // ErrorText,
   PreIcon,
   CardIcon,
   AgreeBox,
   FieldBox,
   InputWrapper,
-  MiddleBorder,
+  // MiddleBorder,
   UserName,
   FirstName,
   LastName,
@@ -248,12 +248,14 @@ export const StepTwo = ({
   }
 
   const ErrorBoxs = ({ message }: { message: string }) => {
-    return (
-      <ErrorText>
-        <CancelIcon />
-        &nbsp;{message}
-      </ErrorText>
-    )
+    console.log(message)
+    return null
+    // return (
+    //   <ErrorText>
+    //     <CancelIcon />
+    //     &nbsp;{message}
+    //   </ErrorText>
+    // )
   }
 
   type keyType = 'cardNumber' | 'expireDate' | 'cvv'
@@ -272,8 +274,8 @@ export const StepTwo = ({
   const UserNameBox = () => {
     return (
       <UserName>
-        <FirstName>{username.firstName}</FirstName>
-        <LastName>{username.lastName}</LastName>
+        <FirstName></FirstName>
+        <LastName></LastName>
       </UserName>
     )
   }
@@ -318,27 +320,22 @@ export const StepTwo = ({
       <Form onSubmit={handleSubmit((data) => formSubmit(data))} id='stepTwoForm'>
         <Fields>
           <FieldBox>
-            <InputWrapper borderRemove={'right'} isDirty isValid>
+            <InputWrapper borderRemove={'none'} isDirty isValid>
               <PreIcon isValid>
                 <ForwardIcon />
               </PreIcon>
               <Input
-                placeholder='First Name'
-                value={username.firstName}
+                placeholder='Card holer'
                 onChange={(e) => setUsername({ ...username, firstName: e.target.value })}
               />
             </InputWrapper>
           </FieldBox>
-          <FieldBox>
+          {/* <FieldBox>
             <InputWrapper borderRemove={'left'} isDirty isValid>
               <MiddleBorder />
-              <Input
-                placeholder='Last Name'
-                value={username.lastName}
-                onChange={(e) => setUsername({ ...username, lastName: e.target.value })}
-              />
+              <Input placeholder='' onChange={(e) => setUsername({ ...username, lastName: e.target.value })} />
             </InputWrapper>
-          </FieldBox>
+          </FieldBox> */}
         </Fields>
 
         <Fields>
@@ -352,7 +349,7 @@ export const StepTwo = ({
                 <ForwardIcon />
               </PreIcon>
               <Input
-                placeholder={creditCardPayment ? '4242 4242 4242 4242' : '0000 0000 0000 0000 0000 00'}
+                placeholder={creditCardPayment ? 'Card Number' : '0000 0000 0000 0000 0000 00'}
                 autoComplete='off'
                 value={cardNum}
                 {...register('cardNumber', {
@@ -364,7 +361,7 @@ export const StepTwo = ({
                 onBlur={(e) => checkValid(e.target.name as keyType)}
                 onChange={(e) => handleChangeCardNumber(e)}
               />
-              <CardIcon>{cardIcon}</CardIcon>
+              <CardIcon>{cardIcon && null}</CardIcon>
             </InputWrapper>
             {errors.cardNumber && <ErrorBoxs message={errors.cardNumber.message || errorMessages.cardNumber} />}
           </FieldBox>

@@ -18,6 +18,7 @@ interface IFormProps {
 function App() {
   const { steps, currentStep, isFirstStep, isLastStep, loading, setLoading, back, next } = useSignUpForm([
     'informationForm',
+    'paymantForm',
   ])
 
   const onSubmit = useCallback(async (data: IFormProps, e?: { preventDefault: () => void }) => {
@@ -55,6 +56,7 @@ function App() {
         toast.error('Something went wrong. Please try again later.')
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
