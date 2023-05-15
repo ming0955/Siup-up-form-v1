@@ -515,3 +515,9 @@ export const ExpireDateValue = styled.div`
     width: 100%;
   }
 `
+export const ErrorBox = styled.div`
+  color: #ff0000;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+`

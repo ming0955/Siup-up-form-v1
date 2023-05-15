@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { FormContainer, RowSpace, SignUpContainer, TermsCondition } from './styles'
+import React, { useEffect, useState } from 'react'
+import { ErrorBox, FormContainer, RowSpace, SignUpContainer, TermsCondition } from './styles'
 import { Steps } from './Steps'
 import { StepOne } from './StepOne'
 import { IFormProps } from './types'
@@ -18,6 +18,7 @@ interface Props {
   loading: boolean
   currentStep: number
   paymentMethod?: string
+  message?: string
   isLoading?: boolean
   back?: () => void
   onSubmit: (data: IFormProps, e?: { preventDefault: () => void }) => Promise<void>
@@ -36,6 +37,7 @@ const SignUpForm = ({
   paymentMethod,
   onSubmit,
   back,
+  message,
 }: Props) => {
   const [data, setData] = useState<IFormProps>({
     firstName: '',
@@ -98,6 +100,7 @@ const SignUpForm = ({
           />
         )}
       </FormContainer>
+      {message && message !== '' && <ErrorBox>{message}</ErrorBox>}
 
       <StepButtons currentStep={currentStep} steps={steps} loading={loading} back={back} />
       {currentStep === 2 && (

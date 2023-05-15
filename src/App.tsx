@@ -83,6 +83,7 @@ function App() {
         back={back}
         onSubmit={onSubmit}
         paymentMethod={'CC'}
+        message={'hello! test error message'}
       />
     </div>
   )
