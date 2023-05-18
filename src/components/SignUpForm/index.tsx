@@ -100,6 +100,7 @@ const SignUpForm = ({
           />
         )}
       </FormContainer>
+
       {message && message !== '' && <ErrorBox>{message}</ErrorBox>}
 
       <StepButtons currentStep={currentStep} steps={steps} loading={loading} back={back} />
