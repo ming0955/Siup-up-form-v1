@@ -13,14 +13,6 @@ export interface IstepOneProps {
   setValidatedFields: (data: IvalidedFields) => void
 }
 
-export interface IStepButtons {
-  setCurrentStep?: (step: number) => void
-  currentStep: number
-  steps?: number
-  loading?: boolean
-  back?: () => void
-}
-
 export interface IstepButtonsSytleProps {
   isSubmitting?: boolean
 }

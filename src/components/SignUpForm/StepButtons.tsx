@@ -1,10 +1,20 @@
 import React from 'react'
 import ForwardIcon from '@mui/icons-material/Forward'
-import { IStepButtons } from './types'
 import { BackButton, Badge, ButtonGroup, ButtonIconWrapper, Loader, StepButton, Text } from './styles'
 import { BadgeIcon, LockIcon, SubmitLoading } from './Icons'
 
-export const StepButtons = ({ currentStep, loading, back }: IStepButtons) => {
+interface IStepButtons {
+  setCurrentStep?: (step: number) => void
+  currentStep: number
+  steps?: number
+  loading?: boolean
+  back?: () => void
+  paymentMethod?: string
+}
+
+export const StepButtons = ({ currentStep, loading, back, paymentMethod }: IStepButtons) => {
+  const isDisabled = currentStep === 2 && paymentMethod && paymentMethod.toLowerCase() === 'cc'
+
   return (
     <ButtonGroup marginTop={currentStep === 2} className='sf-sign-up-form-buttons'>
       {currentStep === 2 && <BackButton onClick={back}>Back</BackButton>}
@@ -13,7 +23,7 @@ export const StepButtons = ({ currentStep, loading, back }: IStepButtons) => {
         disabled={loading}
         isSubmitting={loading}
         form={currentStep === 1 ? 'stepOneForm' : 'stepTwoForm'}
-        style={{ pointerEvents: currentStep === 1 ? 'all' : 'none' }}
+        style={isDisabled ? { pointerEvents: 'none' } : {}}
       >
         <Badge>
           <BadgeIcon />

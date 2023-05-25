@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ErrorBox, FormContainer, RowSpace, SignUpContainer, TermsCondition } from './styles'
 import { Steps } from './Steps'
 import { StepOne } from './StepOne'
@@ -103,7 +103,13 @@ const SignUpForm = ({
 
       {message && message !== '' && <ErrorBox>{message}</ErrorBox>}
 
-      <StepButtons currentStep={currentStep} steps={steps} loading={loading} back={back} />
+      <StepButtons
+        currentStep={currentStep}
+        steps={steps}
+        loading={loading}
+        back={back}
+        paymentMethod={paymentMethod}
+      />
       {currentStep === 2 && (
         <TermsCondition>
           <p>We value your privacy. We will not see or rent your email address or phone number to third parties.</p>

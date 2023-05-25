@@ -27,13 +27,13 @@ import {
   Form,
   Fields,
   Input,
-  // ErrorText,
+  ErrorText,
   PreIcon,
   CardIcon,
   AgreeBox,
   FieldBox,
   InputWrapper,
-  // MiddleBorder,
+  MiddleBorder,
   UserName,
   FirstName,
   LastName,
@@ -248,14 +248,7 @@ export const StepTwo = ({
   }
 
   const ErrorBoxs = ({ message }: { message: string }) => {
-    console.log(message)
-    return null
-    // return (
-    //   <ErrorText>
-    //     <CancelIcon />
-    //     &nbsp;{message}
-    //   </ErrorText>
-    // )
+    return <>{creditCardPayment ? null : <ErrorText>&nbsp;{message}</ErrorText>}</>
   }
 
   type keyType = 'cardNumber' | 'expireDate' | 'cvv'
@@ -274,8 +267,8 @@ export const StepTwo = ({
   const UserNameBox = () => {
     return (
       <UserName>
-        <FirstName></FirstName>
-        <LastName></LastName>
+        <FirstName>{creditCardPayment ? '' : username.firstName}</FirstName>
+        <LastName>{creditCardPayment ? '' : username.lastName}</LastName>
       </UserName>
     )
   }
@@ -312,7 +305,6 @@ export const StepTwo = ({
       </HeaderContainer>
       <CardWrapper>
         {creditCardPayment ? <CreditCardImage /> : <CardImage />}
-        {/* display card number and user name */}
         <CardNumberBox />
         <UserNameBox />
         {creditCardPayment && <CardExpireDate />}
@@ -320,22 +312,29 @@ export const StepTwo = ({
       <Form onSubmit={handleSubmit((data) => formSubmit(data))} id='stepTwoForm'>
         <Fields>
           <FieldBox>
-            <InputWrapper borderRemove={'none'} isDirty isValid>
+            <InputWrapper borderRemove={creditCardPayment ? 'none' : 'right'} isDirty isValid>
               <PreIcon isValid>
                 <ForwardIcon />
               </PreIcon>
               <Input
-                placeholder='Card holer'
+                placeholder={creditCardPayment ? 'Card holer' : 'First Name'}
+                value={creditCardPayment ? '' : username.firstName}
                 onChange={(e) => setUsername({ ...username, firstName: e.target.value })}
               />
             </InputWrapper>
           </FieldBox>
-          {/* <FieldBox>
-            <InputWrapper borderRemove={'left'} isDirty isValid>
-              <MiddleBorder />
-              <Input placeholder='' onChange={(e) => setUsername({ ...username, lastName: e.target.value })} />
-            </InputWrapper>
-          </FieldBox> */}
+          {!creditCardPayment && (
+            <FieldBox>
+              <InputWrapper borderRemove={'left'} isDirty isValid>
+                <MiddleBorder />
+                <Input
+                  placeholder='Last Name'
+                  value={username.lastName}
+                  onChange={(e) => setUsername({ ...username, lastName: e.target.value })}
+                />
+              </InputWrapper>
+            </FieldBox>
+          )}
         </Fields>
 
         <Fields>
@@ -361,7 +360,7 @@ export const StepTwo = ({
                 onBlur={(e) => checkValid(e.target.name as keyType)}
                 onChange={(e) => handleChangeCardNumber(e)}
               />
-              <CardIcon>{cardIcon && null}</CardIcon>
+              <CardIcon>{creditCardPayment ? null : cardIcon}</CardIcon>
             </InputWrapper>
             {errors.cardNumber && <ErrorBoxs message={errors.cardNumber.message || errorMessages.cardNumber} />}
           </FieldBox>
