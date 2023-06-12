@@ -14,6 +14,9 @@ interface IStepButtons {
 
 export const StepButtons = ({ currentStep, loading, back, paymentMethod }: IStepButtons) => {
   const isDisabled = currentStep === 2 && paymentMethod && paymentMethod.toLowerCase() === 'cc'
+  console.log('currentStep: ', currentStep)
+  console.log('paymentMethod: ', paymentMethod)
+  console.log('isDisabled: ', isDisabled)
 
   return (
     <ButtonGroup marginTop={currentStep === 2} className='sf-sign-up-form-buttons'>

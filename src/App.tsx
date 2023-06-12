@@ -82,7 +82,7 @@ function App() {
         loading={loading}
         back={back}
         onSubmit={onSubmit}
-        paymentMethod={'CC'}
+        paymentMethod={'dd'}
         message={''}
       />
     </div>
