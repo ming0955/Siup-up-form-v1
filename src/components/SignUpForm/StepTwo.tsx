@@ -89,7 +89,7 @@ export const StepTwo = ({
   const [cardNum, setCardNum] = useState('')
   const [cardIcon, setCardIcon] = useState<React.ReactNode>()
   const [cardExpireDate, setCardExpireDate] = useState('')
-  const creditCardPayment = paymentMethod === 'CreditCard' || paymentMethod === 'CC'
+  const creditCardPayment = paymentMethod?.toLowerCase() === 'cc'
 
   const formartSubcaption = (subCaption: string): string[] => {
     if (!subCaption) return []
