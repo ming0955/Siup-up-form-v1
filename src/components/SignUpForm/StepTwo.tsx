@@ -235,7 +235,7 @@ export const StepTwo = ({
     const newData = {
       ...data,
       cardNumber: formData.cardNumber?.replaceAll(' ', ''),
-      paymentMethod: paymentMethod || 'IBAN',
+      paymentMethod: paymentMethod || 'dd',
     }
 
     if (creditCardPayment) {
