@@ -20,6 +20,7 @@ interface Props {
   paymentMethod?: string
   message?: string
   isLoading?: boolean
+  targetGeo?: string[]
   back?: () => void
   onSubmit: (data: IFormProps, e?: { preventDefault: () => void }) => Promise<void>
 }
@@ -38,6 +39,7 @@ const SignUpForm = ({
   onSubmit,
   back,
   message,
+  targetGeo,
 }: Props) => {
   const [data, setData] = useState<IFormProps>({
     firstName: '',
@@ -79,6 +81,7 @@ const SignUpForm = ({
             data={data}
             currentStep={currentStep}
             validatedFields={validatedFields}
+            targetGeo={targetGeo}
             setData={setData}
             onSubmit={onSubmit}
             setValidatedFields={setValidatedFields}

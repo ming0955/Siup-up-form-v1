@@ -11,6 +11,7 @@ export interface IstepOneProps {
   onSubmit?: (data: IFormProps) => void
   validatedFields: IvalidedFields
   setValidatedFields: (data: IvalidedFields) => void
+  targetGeo?: string[]
 }
 
 export interface IstepButtonsSytleProps {

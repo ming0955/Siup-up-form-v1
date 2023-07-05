@@ -22,9 +22,19 @@ import {
 import { errorMessages } from './constants.enum'
 
 export const StepOne = React.memo(
-  ({ headingTitle, subCaption = '', data, validatedFields, setData, onSubmit, setValidatedFields }: IstepOneProps) => {
+  ({
+    headingTitle,
+    subCaption = '',
+    data,
+    validatedFields,
+    targetGeo = [],
+    setData,
+    onSubmit,
+    setValidatedFields,
+  }: IstepOneProps) => {
     const [subCaptionTexts, setSubCaptionTexts] = useState<string[]>([])
-    const [initCountry, setInitCountry] = useState('us')
+    const [initCountry, setInitCountry] = useState('')
+    const [countryList, setCountryList] = useState(targetGeo)
     const [phoneCountry, setPhoneCountry] = useState<any>()
     const {
       register,
@@ -47,11 +57,11 @@ export const StepOne = React.memo(
     })
 
     useEffect(() => {
-      const arr = formartSubcaption(subCaption)
+      const arr = formatSubcaption(subCaption)
       setSubCaptionTexts(arr)
     }, [subCaption])
 
-    const formartSubcaption = (subCaption: string): string[] => {
+    const formatSubcaption = (subCaption: string): string[] => {
       if (!subCaption) return []
       return subCaption.split(':')
     }
@@ -63,6 +73,8 @@ export const StepOne = React.memo(
           const data = await response.json()
           const _country = (data?.country_code || 'us').toLowerCase()
           setInitCountry(_country)
+          const mergedArray = [...countryList, _country]
+          setCountryList(mergedArray)
         } catch (error) {
           console.error('Error fetching IP address:', error)
           setInitCountry('us')
@@ -73,12 +85,12 @@ export const StepOne = React.memo(
     }, [])
 
     const formSubmit = async (formData: IFormProps) => {
-      if (phoneCountry !== initCountry) {
-        setError('phoneNumber', { message: "This number can't use in your location" })
-        return
+      if (countryList.includes(phoneCountry)) {
+        setData && setData(formData)
+        onSubmit && onSubmit(formData)
+      } else {
+        setError('phoneNumber', { message: "This number can't be used in your location" })
       }
-      setData && setData(formData)
-      onSubmit && onSubmit(formData)
     }
 
     const ErrorBoxs = React.memo(({ message }: { message: string }) => {
@@ -128,8 +140,8 @@ export const StepOne = React.memo(
                   autoComplete='off'
                   {...register('firstName', {
                     required: true,
-                    minLength: { value: 3, message: 'First Name must be 3 characters more' },
-                    maxLength: { value: 50, message: 'First Name must be 50 characters less' },
+                    minLength: { value: 3, message: 'First Name must be 3 characters or more' },
+                    maxLength: { value: 50, message: 'First Name must be 50 characters or less' },
                   })}
                   onBlur={() => checkValid('firstName')}
                 />
@@ -137,19 +149,15 @@ export const StepOne = React.memo(
               {errors.firstName && <ErrorBoxs message={errors.firstName.message || errorMessages.firstName} />}
             </FieldBox>
             <FieldBox>
-              <InputWrapper
-                borderRemove={'left'}
-                isDirty={dirtyFields.lastName && !errors.lastName}
-                // isValid={validatedFields.lastName}
-              >
+              <InputWrapper borderRemove={'left'} isDirty={dirtyFields.lastName && !errors.lastName}>
                 <MiddleBorder />
                 <Input
                   placeholder='Last Name'
                   autoComplete='off'
                   {...register('lastName', {
                     required: true,
-                    minLength: { value: 3, message: 'Last Name must be 3 characters more' },
-                    maxLength: { value: 50, message: 'Last Name must be 50 characters less' },
+                    minLength: { value: 3, message: 'Last Name must be 3 characters or more' },
+                    maxLength: { value: 50, message: 'Last Name must be 50 characters or less' },
                   })}
                   onBlur={() => checkValid('lastName')}
                 />
@@ -226,6 +234,7 @@ export const StepOne = React.memo(
                 <PreIcon isValid={validatedFields.phoneNumber}>
                   <ForwardIcon />
                 </PreIcon>
+
                 <Controller
                   name='phoneNumber'
                   control={control}
@@ -246,13 +255,16 @@ export const StepOne = React.memo(
                   }}
                   render={({ field: { value, onChange } }) => (
                     <PSC.PhoneInputWrapper>
-                      <PhoneInput
-                        country={initCountry}
-                        placeholder={'Phone Number'}
-                        value={value}
-                        onChange={onChange}
-                        onBlur={() => checkValid('phoneNumber')}
-                      />
+                      {initCountry && (
+                        <PhoneInput
+                          country={initCountry}
+                          onlyCountries={countryList}
+                          placeholder={'Phone Number'}
+                          value={value}
+                          onChange={onChange}
+                          onBlur={() => checkValid('phoneNumber')}
+                        />
+                      )}
                     </PSC.PhoneInputWrapper>
                   )}
                 />
@@ -293,3 +305,5 @@ export const StepOne = React.memo(
     )
   },
 )
+
+export default StepOne
