@@ -315,7 +315,7 @@ export const StepButton = styled.button<IstepButtonsSytleProps>`
   box-shadow: inset 0px -0.5px 0px 0.5px #4c6c0c;
   border-radius: 5px;
   border: none;
-  cursor: ${(props) => (props.isSubmitting ? 'not-allowed' : 'pointer')};
+  cursor: ${(props) => (props.isSubmitting ? 'none' : 'pointer')};
 
   &:hover span {
     transform: scale(1.01);
