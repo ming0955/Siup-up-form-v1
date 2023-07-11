@@ -12,6 +12,7 @@ interface Props {
   className?: string
   firstColor?: string
   secondColor?: string
+  buttonColor?: string
   headingTitle: string[]
   subCaption: string[]
   steps: number
@@ -30,6 +31,7 @@ const SignUpForm = ({
   className,
   firstColor,
   secondColor,
+  buttonColor,
   headingTitle,
   subCaption,
   steps,
@@ -75,6 +77,8 @@ const SignUpForm = ({
       <FormContainer className='sf-form-container'>
         {currentStep === 1 && (
           <StepOne
+            firstColor={firstColor || SF_FormColor.PRIMARY}
+            secondColor={secondColor || SF_FormColor.SECONDARY}
             headingTitle={headingTitle[0]}
             subCaption={subCaption[0]}
             steps={steps || 1}
@@ -90,6 +94,8 @@ const SignUpForm = ({
 
         {currentStep === 2 && (
           <StepTwo
+            firstColor={firstColor || SF_FormColor.PRIMARY}
+            secondColor={secondColor || SF_FormColor.SECONDARY}
             headingTitle={headingTitle[1]}
             subCaption={subCaption[1]}
             steps={steps}
@@ -107,6 +113,7 @@ const SignUpForm = ({
       {message && message !== '' && <ErrorBox>{message}</ErrorBox>}
 
       <StepButtons
+        buttonColor={buttonColor}
         currentStep={currentStep}
         steps={steps}
         loading={loading}

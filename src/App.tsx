@@ -71,8 +71,9 @@ function App() {
       }}
     >
       <SignUpForm
-        firstColor='#88B431'
+        firstColor='#4A55A2'
         secondColor='#D9D9D9'
+        buttonColor='#7895CB'
         headingTitle={['Enter Your Information']}
         subCaption={[
           'Please fill out the following fields to create an account: *Email and password are case sensitive',

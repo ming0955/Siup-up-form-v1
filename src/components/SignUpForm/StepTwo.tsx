@@ -47,6 +47,7 @@ import {
 } from './styles'
 
 export const StepTwo = ({
+  firstColor,
   headingTitle,
   subCaption = '',
   setData,
@@ -293,7 +294,7 @@ export const StepTwo = ({
   return (
     <>
       <HeaderContainer>
-        <HeadingTitle>{headingTitle || 'Enter Your Payment Details'}</HeadingTitle>
+        <HeadingTitle firstColor={firstColor}>{headingTitle || 'Enter Your Payment Details'}</HeadingTitle>
         {subCaptionTexts.map((text, i) => {
           return (
             <SubCaption key={i}>
@@ -435,9 +436,9 @@ export const StepTwo = ({
                 required
                 size='small'
                 sx={{
-                  color: '#88B431',
+                  color: firstColor,
                   '&.Mui-checked': {
-                    color: '#88B431',
+                    color: firstColor,
                   },
                 }}
               />

@@ -58,7 +58,7 @@ export const StepNum = styled.span<IStep>`
   right: ${(props) => (props.stepNum === 1 ? '63%' : 'unset')};
   left: ${(props) => (props.stepNum === 2 ? '63%' : 'unset')};
   color: ${(props) => (props.active ? SF_FormColor.TEXTACTIVE : SF_FormColor.TEXTCOLOR)};
-  color: ${(props) => props.success && SF_FormColor.PRIMARY};
+  color: ${(props) => (props.success ? props.firstColor || SF_FormColor.PRIMARY : SF_FormColor.TEXTACTIVE)};
 `
 
 export const FormContainer = styled.div`
@@ -75,12 +75,12 @@ export const HeaderContainer = styled.div`
   margin-bottom: 20px;
 `
 
-export const HeadingTitle = styled.p`
+export const HeadingTitle = styled.p<IStep>`
   display: flex;
   font-style: normal;
   font-size: 24px;
   line-height: 26px;
-  color: ${SF_FormColor.PRIMARY};
+  color: ${(props) => (props.firstColor ? props.firstColor : SF_FormColor.PRIMARY)};
   margin: 10px 0 7px;
   font-family: 'Latoblack';
 `
@@ -311,8 +311,8 @@ export const StepButton = styled.button<IstepButtonsSytleProps>`
   white-space: nowrap;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14);
   padding: 10px 46px 10px 27px;
-  background: linear-gradient(180deg, #8bb832 0%, #749c27 100%);
-  box-shadow: inset 0px -0.5px 0px 0.5px #4c6c0c;
+  background: ${(props) =>
+    props.buttonColor ? props.buttonColor : 'linear-gradient(180deg, #8bb832 0%, #749c27 100%)'};
   border-radius: 5px;
   border: none;
   cursor: ${(props) => (props.isSubmitting ? 'none' : 'pointer')};
@@ -410,6 +410,7 @@ export const LastName = styled.p`
   font-size: 16px;
   line-height: 19px;
   color: #fffefe;
+
   @media (min-width: 481px) {
     font-size: 18px;
   }
@@ -477,8 +478,8 @@ export const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
 
   img {
     max-width: 100%;

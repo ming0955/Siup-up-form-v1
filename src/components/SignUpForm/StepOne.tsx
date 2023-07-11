@@ -23,6 +23,7 @@ import { errorMessages } from './constants.enum'
 
 export const StepOne = React.memo(
   ({
+    firstColor,
     headingTitle,
     subCaption = '',
     data,
@@ -113,7 +114,7 @@ export const StepOne = React.memo(
     return (
       <>
         <HeaderContainer>
-          <HeadingTitle>{headingTitle || 'Enter Your Information'}</HeadingTitle>
+          <HeadingTitle firstColor={firstColor}>{headingTitle || 'Enter Your Information'}</HeadingTitle>
           {subCaptionTexts.map((text, i) => {
             return (
               <SubCaption key={i}>

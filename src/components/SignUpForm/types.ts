@@ -1,4 +1,6 @@
 export interface IstepOneProps {
+  firstColor?: string
+  secondColor?: string
   headingTitle?: string
   subCaption?: string
   steps?: number
@@ -16,6 +18,7 @@ export interface IstepOneProps {
 
 export interface IstepButtonsSytleProps {
   isSubmitting?: boolean
+  buttonColor?: string
 }
 
 export interface IvalidedFields {
